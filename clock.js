@@ -1,10 +1,12 @@
 const fs = require('fs');
 
-const div = (classes, content) => `<div class=${classes}>${content}</div>`;
+const div = (classes, content) => `<div class=${classes.join(' ')}>${content}</div>`;
 
 const meta = (httpEquiv, content) => `<meta http-equiv=${httpEquiv} content=${content}>`;
 
 const link = (rel, href) => `<link rel=${rel} href=${href}>`;
+
+const styleSheet = (path) => link('stylesheet', path);
 
 class Clock {
   constructor() {
@@ -17,19 +19,18 @@ class Clock {
 
   toHtml() {
     const refresh = meta('refresh', 1);
-    const linkTag = link('stylesheet', './styles.css');
-    const dateStr = div('date', this.dateStr);
-    const hours = div('box', this.hours);
-    const minutes = div('box', this.minutes);
-    const seconds = div('box', this.seconds);
-    const time = div('time', hours + minutes + seconds);
+    const linkTag = styleSheet('./styles.css');
+    const dateStr = div(['date'], this.dateStr);
+    const hours = div(['box'], this.hours);
+    const minutes = div(['box'], this.minutes);
+    const seconds = div(['box'], this.seconds);
+    const time = div(['time'], hours + minutes + seconds);
     const html = refresh + linkTag + dateStr + time
     return html;
   }
-}
+};
 
 setInterval(() => {
   const currentTime = new Clock();
   fs.writeFileSync('index.html', currentTime.toHtml(), 'utf-8');
-
 }, 1000);
