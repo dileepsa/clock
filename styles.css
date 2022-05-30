@@ -5,10 +5,18 @@
 
 body {
   width: 960px;
-  margin: 0 auto;
+  margin: 15em auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: black;
+}
+
+.date {
+  color: white;
+  display: flex;
+  font-size: 50px;
 }
 
 .time {
@@ -19,9 +27,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 70px;
+  font-size: 100px;
   height: 200px;
   width: 200px;
-  background-color: black;
   color: white;
 }
